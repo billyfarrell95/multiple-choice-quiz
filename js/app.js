@@ -18,7 +18,7 @@ function renderUI() {
         newQuestionWrapper.classList.add("question-wrapper");
         triviaWrapper.append(newQuestionWrapper);
         newQuestionWrapper.append(newH2);
-        for (let i = 0; i < triviaData[i].options.length; i++) {
+        for (let j = 0; i < triviaData[i].options.length; j++) {
             let newBtn = document.createElement("button");
             newBtn.innerText = triviaData[i].options[i];
             newQuestionWrapper.append(newBtn);
