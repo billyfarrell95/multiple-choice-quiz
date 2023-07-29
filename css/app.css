@@ -1,0 +1,5 @@
+/* Class to hide or show the trivia start button */
+
+.hide-btn {
+    display: none;
+}
