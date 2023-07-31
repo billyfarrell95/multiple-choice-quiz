@@ -3,35 +3,54 @@ import triviaData from "./data.js"
 const startBtn = document.getElementById("start");
 // Save true/false status after the user answers
 let userAnswers = [];
+let currentQuestionIndex = 0;
 
 startBtn.addEventListener("click", initializeTrivia);
 
 // Initialize trivia
 function initializeTrivia() {
-    renderUI();
+    showQuestion();
     startBtn.classList.toggle("hide-btn");
 }
 
 // Render UI based on data.js and add event listeners to the question choice buttons
-function renderUI() {
+function showQuestion() {
     const triviaWrapper = document.getElementById("trivia-wrapper");
-    for (let i = 0; i < triviaData.length; i++) {
+    // Clear previous question
+    triviaWrapper.innerHTML = "";
+
+    if (currentQuestionIndex < triviaData.length) {
         let newH2 = document.createElement("h2");
-        newH2.innerText = triviaData[i].question;
+        newH2.innerText = triviaData[currentQuestionIndex].question;
         let newQuestionWrapper = document.createElement("div");
         newQuestionWrapper.classList.add("question-wrapper");
+        let nextBtn = document.createElement("button");
+        nextBtn.innerText = "Next";
         triviaWrapper.append(newQuestionWrapper);
+        triviaWrapper.append(nextBtn);
         newQuestionWrapper.append(newH2);
-        for (let j = 0; j < triviaData[i].options.length; j++) {
-            let newBtn = document.createElement("button");
-            newBtn.innerText = triviaData[i].options[j];
-            newBtn.setAttribute("data-question-id", triviaData[i].id);
-            newQuestionWrapper.append(newBtn);
 
-            newBtn.addEventListener("click", checkAnswerSelection)
-        }
-    };
+        for (let i = 0; i < triviaData[currentQuestionIndex].options.length; i++) {
+            let newBtn = document.createElement("button");
+            newBtn.innerText = triviaData[currentQuestionIndex].options[i];
+            newBtn.setAttribute("data-question-id", triviaData[currentQuestionIndex].id);
+            newQuestionWrapper.append(newBtn);
+    
+            newBtn.addEventListener("click", checkAnswerSelection);
+        };
+    
+        // Next button event listener
+        nextBtn.addEventListener("click", showNextQuestion);
+
+    } else {
+        console.log("done")
+    }
 };
+
+function showNextQuestion() {
+    currentQuestionIndex++;
+    showQuestion();
+}
 
 // Check if answer is correct based on ID pulled from data.js
 function checkAnswerSelection(e) {
