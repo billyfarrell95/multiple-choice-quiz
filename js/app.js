@@ -1,14 +1,18 @@
 import triviaData from "./data.js"
 
 const startBtn = document.getElementById("start");
+// Save true/false status after the user answers
+let userAnswers = [];
 
-startBtn.addEventListener("click", startTrivia);
+startBtn.addEventListener("click", initializeTrivia);
 
-function startTrivia() {
+// Initialize trivia
+function initializeTrivia() {
     renderUI();
     startBtn.classList.toggle("hide-btn");
 }
 
+// Render UI based on data.js and add event listeners to the question choice buttons
 function renderUI() {
     const triviaWrapper = document.getElementById("trivia-wrapper");
     for (let i = 0; i < triviaData.length; i++) {
@@ -29,6 +33,7 @@ function renderUI() {
     };
 };
 
+// Check if answer is correct based on ID pulled from data.js
 function checkAnswerSelection(e) {
     const selectedBtn = e.target;
     const selectedAnswer = selectedBtn.innerText;
@@ -42,8 +47,10 @@ function checkAnswerSelection(e) {
     }
 
     if (selectedAnswer === currentQuestion.answer) {
-        console.log("That is correct");
+        userAnswers.push("true");
+        console.log(userAnswers);
     } else {
-        console.log("That is incorrect");
+        userAnswers.push("false");
+        console.log(userAnswers);
     }
 }
