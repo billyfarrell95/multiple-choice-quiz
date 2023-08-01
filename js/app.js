@@ -11,6 +11,7 @@ startBtn.addEventListener("click", initializeTrivia);
 function initializeTrivia() {
     showQuestion();
     startBtn.classList.toggle("hide-btn");
+    userAnswers = [];
 }
 
 // Render UI based on data.js and add event listeners to the question choice buttons
@@ -58,6 +59,8 @@ function checkAnswerSelection(e) {
     const selectedAnswer = selectedBtn.innerText;
     const questionId = selectedBtn.getAttribute("data-question-id");
 
+    // select current buttons in the DOM here
+
     let currentQuestion;
     for (let i = 0; i < triviaData.length; i++) {
         if (triviaData[i].id.toString() === questionId) {
@@ -68,8 +71,10 @@ function checkAnswerSelection(e) {
     if (selectedAnswer === currentQuestion.answer) {
         userAnswers.push("true");
         console.log(userAnswers);
+        // Code to control button behavior after an answers is clicked here
     } else {
         userAnswers.push("false");
         console.log(userAnswers);
+        // Code to control button behavior after an answers is clicked here
     }
 }
