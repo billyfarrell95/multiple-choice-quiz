@@ -3,3 +3,9 @@
 .hide-btn {
     display: none;
 }
+
+/* Buttons styling */
+
+button {
+    cursor: pointer;
+}
