@@ -5,6 +5,8 @@ const startBtn = document.getElementById("start");
 let userAnswers = [];
 let currentQuestionIndex = 0;
 
+let nextBtn;
+
 startBtn.addEventListener("click", initializeTrivia);
 
 // Initialize trivia
@@ -25,8 +27,10 @@ function showQuestion() {
         newH2.innerText = triviaData[currentQuestionIndex].question;
         let newQuestionWrapper = document.createElement("div");
         newQuestionWrapper.classList.add("question-wrapper");
-        let nextBtn = document.createElement("button");
+        nextBtn = document.createElement("button");
+        nextBtn.classList.add("next-btn");
         nextBtn.innerText = "Next";
+        nextBtn.disabled = true;
         triviaWrapper.append(newQuestionWrapper);
         triviaWrapper.append(nextBtn);
         newQuestionWrapper.append(newH2);
@@ -53,6 +57,11 @@ function showNextQuestion() {
     showQuestion();
 }
 
+// Enable the Next button after an answer is selected
+function enableNextBtn() {
+    nextBtn.disabled = false;
+}
+
 // Check if answer is correct based on ID pulled from data.js
 function checkAnswerSelection(e) {
     const selectedBtn = e.target;
@@ -64,7 +73,8 @@ function checkAnswerSelection(e) {
     selectedBtn.classList.add("selected");
     for (let i = 0; i < currentBtns.length; i++) {
         if (!currentBtns[i].classList.contains("selected")) {
-            currentBtns[i].style.backgroundColor = "black"
+            selectedBtn.disabled = true;
+            currentBtns[i].style.backgroundColor = "black";
         }
     }
 
@@ -86,4 +96,6 @@ function checkAnswerSelection(e) {
         console.log(userAnswers);
         // Code to control button behavior after an answers is clicked here
     }
+
+    enableNextBtn();
 }
