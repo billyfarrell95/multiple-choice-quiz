@@ -59,6 +59,15 @@ function checkAnswerSelection(e) {
     const selectedAnswer = selectedBtn.innerText;
     const questionId = selectedBtn.getAttribute("data-question-id");
 
+
+    let currentBtns = document.querySelectorAll(".question-wrapper button");
+    selectedBtn.classList.add("selected");
+    for (let i = 0; i < currentBtns.length; i++) {
+        if (!currentBtns[i].classList.contains("selected")) {
+            currentBtns[i].style.backgroundColor = "black"
+        }
+    }
+
     // select current buttons in the DOM here
 
     let currentQuestion;
