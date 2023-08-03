@@ -29,7 +29,8 @@ function showQuestion() {
         newQuestionWrapper.classList.add("question-wrapper");
         nextBtn = document.createElement("button");
         nextBtn.classList.add("next-btn");
-        nextBtn.innerText = "Next";
+        // conditional/ternary operator: condition ? expressionIfTrue : expressionIfFalse
+        nextBtn.innerText = currentQuestionIndex >= triviaData.length - 1 ? "View Results" : "Next";
         nextBtn.disabled = true;
         triviaWrapper.append(newQuestionWrapper);
         triviaWrapper.append(nextBtn);
@@ -48,11 +49,17 @@ function showQuestion() {
         nextBtn.addEventListener("click", showNextQuestion);
 
     } else {
-        console.log("done")
+        showResults(triviaWrapper)
     }
 };
 
 function showNextQuestion() {
+    /* if (currentQuestionIndex >= triviaData.length - 1) {
+        showResults();
+    } else {
+        currentQuestionIndex++;
+        showQuestion();
+    } */
     currentQuestionIndex++;
     showQuestion();
 }
@@ -78,24 +85,19 @@ function checkAnswerSelection(e) {
         }
     }
 
-    // select current buttons in the DOM here
-
-    let currentQuestion;
-    for (let i = 0; i < triviaData.length; i++) {
-        if (triviaData[i].id.toString() === questionId) {
-            currentQuestion = triviaData[i];
-        }
-    }
-
-    if (selectedAnswer === currentQuestion.answer) {
-        userAnswers.push("true");
-        console.log(userAnswers);
-        // Code to control button behavior after an answers is clicked here
+    // Check if the user has answered the question already
+    let answeredIndex = userAnswers.findIndex((answer) => answer.questionId === questionId);
+    if (answeredIndex !== -1) {
+        userAnswers[answeredIndex.answer = selectedAnswer];
     } else {
-        userAnswers.push("false");
-        console.log(userAnswers);
-        // Code to control button behavior after an answers is clicked here
+        userAnswers.push(selectedAnswer)
     }
+    console.log(userAnswers)
 
     enableNextBtn();
+}
+
+// Show results after trivia is completed 
+function showResults(triviaWrapper) {
+    triviaWrapper.append(userAnswers);
 }
