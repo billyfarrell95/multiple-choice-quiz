@@ -54,12 +54,6 @@ function showQuestion() {
 };
 
 function showNextQuestion() {
-    /* if (currentQuestionIndex >= triviaData.length - 1) {
-        showResults();
-    } else {
-        currentQuestionIndex++;
-        showQuestion();
-    } */
     currentQuestionIndex++;
     showQuestion();
 }
@@ -105,20 +99,35 @@ function showResults(triviaWrapper) {
         newP.innerText = triviaData[i].question;
         triviaWrapper.append(newP);
 
-        if (triviaData[i].answer === userAnswers[i]) {
-            score++;
-        }
-
         let newList = document.createElement("ul");
 
         for (let j = 0; j < 4; j++) {
             let newLi = document.createElement("li");
             newLi.innerText = triviaData[i].options[j];
+
+            // Add CSS class to correct answer
+            if (triviaData[i].options[j] == triviaData[i].answer) {
+                newLi.classList.add("correct-answer");
+            }
+
+            // Add CSS class to incorrect answer, if applicable
+            if (userAnswers[i] && userAnswers[i] === triviaData[i].options[j] && userAnswers[i] !== triviaData[i].answer) {
+                newLi.classList.add("incorrect-answer")
+            }
+
             newList.append(newLi);
             newP.insertAdjacentElement("afterend", newList);
         }
 
+        // Calculate the score after checking user answer
+        if (triviaData[i].answer === userAnswers[i]) {
+            score++;
+        }
+
+        
+
     };
+
 
     let scoreElement = document.createElement("p");
     scoreElement.innerText = "You scored " + score.toString() + " out of " + triviaData.length + " correctly.";
