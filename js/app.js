@@ -1,8 +1,11 @@
 import triviaData from "./data.js"
 
 const startBtn = document.getElementById("start");
-// Save true/false status after the user answers
+
+// Save the user answer to an array
 let userAnswers = [];
+
+// Save the index of the current question
 let currentQuestionIndex = 0;
 
 let nextBtn;
@@ -21,6 +24,7 @@ function showQuestion() {
     const triviaWrapper = document.getElementById("trivia-wrapper");
     // Clear previous question
     triviaWrapper.innerHTML = "";
+
 
     if (currentQuestionIndex < triviaData.length) {
         let newH2 = document.createElement("h2");
@@ -48,6 +52,7 @@ function showQuestion() {
         // Next button event listener
         nextBtn.addEventListener("click", showNextQuestion);
 
+        // Show results if all the question have been answered
     } else {
         showResults(triviaWrapper)
     }
@@ -69,7 +74,6 @@ function checkAnswerSelection(e) {
     const selectedAnswer = selectedBtn.innerText;
     const questionId = selectedBtn.getAttribute("data-question-id");
 
-
     let currentBtns = document.querySelectorAll(".question-wrapper button");
     selectedBtn.classList.add("selected");
     for (let i = 0; i < currentBtns.length; i++) {
@@ -86,13 +90,16 @@ function checkAnswerSelection(e) {
     } else {
         userAnswers.push(selectedAnswer)
     }
+
     console.log(userAnswers)
 
+    // Call the function to enable the "Next" button after an answer is select
     enableNextBtn();
 }
 
 // Show results after trivia is completed 
 function showResults(triviaWrapper) {
+    // Default score
     let score = 0;
     for (let i = 0; i < triviaData.length; i++) {
         let newP = document.createElement("p");
@@ -101,6 +108,7 @@ function showResults(triviaWrapper) {
 
         let newList = document.createElement("ul");
 
+        // Loop through question answers (4 in this  case)
         for (let j = 0; j < 4; j++) {
             let newLi = document.createElement("li");
             newLi.innerText = triviaData[i].options[j];
@@ -115,7 +123,10 @@ function showResults(triviaWrapper) {
                 newLi.classList.add("incorrect-answer")
             }
 
+            // Add the <li> to the list
             newList.append(newLi);
+
+            // Add the list to the DOM after each <p> that holds the answer
             newP.insertAdjacentElement("afterend", newList);
         }
 
@@ -123,12 +134,9 @@ function showResults(triviaWrapper) {
         if (triviaData[i].answer === userAnswers[i]) {
             score++;
         }
-
-        
-
     };
 
-
+    
     let scoreElement = document.createElement("p");
     scoreElement.innerText = "You scored " + score.toString() + " out of " + triviaData.length + " correctly.";
     triviaWrapper.insertAdjacentElement("afterbegin", scoreElement);
