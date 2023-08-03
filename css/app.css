@@ -9,3 +9,13 @@
 button {
     cursor: pointer;
 }
+
+/* Results styling */
+
+.correct-answer {
+    background-color: lightgreen;
+}
+
+.incorrect-answer {
+    background-color: lightcoral;
+}

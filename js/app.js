@@ -99,5 +99,28 @@ function checkAnswerSelection(e) {
 
 // Show results after trivia is completed 
 function showResults(triviaWrapper) {
-    triviaWrapper.append(userAnswers);
+    let score = 0;
+    for (let i = 0; i < triviaData.length; i++) {
+        let newP = document.createElement("p");
+        newP.innerText = triviaData[i].question;
+        triviaWrapper.append(newP);
+
+        if (triviaData[i].answer === userAnswers[i]) {
+            score++;
+        }
+
+        let newList = document.createElement("ul");
+
+        for (let j = 0; j < 4; j++) {
+            let newLi = document.createElement("li");
+            newLi.innerText = triviaData[i].options[j];
+            newList.append(newLi);
+            newP.insertAdjacentElement("afterend", newList);
+        }
+
+    };
+
+    let scoreElement = document.createElement("p");
+    scoreElement.innerText = "You scored " + score.toString() + " out of " + triviaData.length + " correctly.";
+    triviaWrapper.insertAdjacentElement("afterbegin", scoreElement);
 }
