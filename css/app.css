@@ -1,17 +1,24 @@
-/* Class to hide or show the trivia start button */
+/* Colors */
+:root {
+    --background: #F4F4F4;
+    --black: #0C0F0A;
+    --blue: #001F54;
+    --white: #ffffff;
+    --red: #BA1F33;
+    --green: #00A9A5;
+}
 
+/* Class to hide or show the trivia start button */
 .hide-btn {
     display: none;
 }
 
 /* Buttons styling */
-
 button {
     cursor: pointer;
 }
 
 /* Results styling */
-
 .correct-answer {
     background-color: lightgreen;
 }
