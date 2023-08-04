@@ -154,7 +154,7 @@ function showResults(triviaWrapper) {
 
     };
 
-    
+    // Render the result elements to the DOM
     let scoreElement = document.createElement("p");
     scoreElement.classList.add("results-score");
     scoreElement.innerText = "You scored " + score.toString() + " out of " + triviaData.length + " correctly. Check your answers below.";
@@ -170,6 +170,7 @@ function showResults(triviaWrapper) {
     scoreElement.insertAdjacentElement("afterend", legendWrapper);
 }
 
+// Restart quiz -- clear trivia wrapper and reset quiz status variables
 function handleRestartQuiz() {
     userAnswers = [];
     currentQuestionIndex = 0;
