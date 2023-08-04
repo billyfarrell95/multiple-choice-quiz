@@ -1,6 +1,7 @@
 import triviaData from "./data.js"
 
 const startBtn = document.getElementById("start");
+const restartBtn = document.getElementById("restart-btn");
 
 // Save the user answer to an array
 let userAnswers = [];
@@ -11,11 +12,13 @@ let currentQuestionIndex = 0;
 let nextBtn;
 
 startBtn.addEventListener("click", initializeTrivia);
+restartBtn.addEventListener("click", handleRestartQuiz);
 
 // Initialize trivia
 function initializeTrivia() {
     showQuestion();
     startBtn.classList.toggle("hide-btn");
+    restartBtn.classList.toggle("hide-btn")
     userAnswers = [];
 }
 
@@ -81,16 +84,16 @@ function checkAnswerSelection(e) {
         if (btn !== selectedBtn) {
             btn.classList.remove("selected");
         }
-    })
+    });
 
-    selectedBtn.classList.toggle("selected");
+    selectedBtn.classList.add("selected");
 
     // Check if the user has answered the question already
     let answeredIndex = userAnswers.findIndex((answer) => answer.questionId === questionId);
     if (answeredIndex !== -1) {
-        userAnswers[answeredIndex.answer = selectedAnswer];
+        userAnswers[answeredIndex].answer = selectedAnswer;
     } else {
-        userAnswers.push(selectedAnswer)
+        userAnswers.push({questionId, answer: selectedAnswer})
     }
 
     console.log(userAnswers)
@@ -99,10 +102,20 @@ function checkAnswerSelection(e) {
     enableNextBtn();
 }
 
+function calculateScore() {
+    let score = 0;
+    for (let i =0; i < triviaData.length; i++) {
+        if (userAnswers[i] && userAnswers[i].answer === triviaData[i].answer) {
+            score++
+        }
+    }
+    return score;
+}
+
 // Show results after trivia is completed 
 function showResults(triviaWrapper) {
-    // Default score
-    let score = 0;
+    // Calculate Score
+    const score = calculateScore();
     for (let i = 0; i < triviaData.length; i++) {
         let newP = document.createElement("p");
         newP.classList.add("results-question");
@@ -122,9 +135,14 @@ function showResults(triviaWrapper) {
                 newLi.classList.add("correct-answer");
             }
 
+            if (triviaData[i].options[j] == triviaData[i].answer && triviaData[i].options[j] != userAnswers[i].answer) {
+                newLi.innerText += " (Correct Answer)"
+            }
+
             // Add CSS class to incorrect answer, if applicable
-            if (userAnswers[i] && userAnswers[i] === triviaData[i].options[j] && userAnswers[i] !== triviaData[i].answer) {
-                newLi.classList.add("incorrect-answer")
+            if (userAnswers[i] && userAnswers[i].answer === triviaData[i].options[j] && userAnswers[i].answer !== triviaData[i].answer) {
+                newLi.classList.add("incorrect-answer");
+                newLi.innerText += " (Your Answer)";
             }
 
             // Add the <li> to the list
@@ -134,10 +152,6 @@ function showResults(triviaWrapper) {
             newP.insertAdjacentElement("afterend", newList);
         }
 
-        // Calculate the score after checking user answer
-        if (triviaData[i].answer === userAnswers[i]) {
-            score++;
-        }
     };
 
     
@@ -154,4 +168,14 @@ function showResults(triviaWrapper) {
     legendWrapper.append(legendIncorrectSpan);
     triviaWrapper.insertAdjacentElement("afterbegin", scoreElement);
     scoreElement.insertAdjacentElement("afterend", legendWrapper);
+}
+
+function handleRestartQuiz() {
+    userAnswers = [];
+    currentQuestionIndex = 0;
+    const triviaWrapper = document.getElementById("trivia-wrapper");
+    while (triviaWrapper.firstChild) {
+    triviaWrapper.removeChild(triviaWrapper.firstChild)
+    }
+    showQuestion();
 }

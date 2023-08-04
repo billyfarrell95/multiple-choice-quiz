@@ -43,6 +43,14 @@ main {
 
 /* Buttons styling */
 
+.restart-btn {
+    max-width: fit-content;
+    background-color: var(--blue);
+    color: var(--white);
+    padding-inline: 1rem;
+    padding-block: .6rem;
+}
+
 #start {
     width: 120px;
     font-size: 20px;
@@ -64,6 +72,7 @@ button {
 
 button:disabled {
     cursor: default;
+    opacity: .5;
 }
 
 .option-btn {
@@ -100,16 +109,21 @@ button:disabled {
 /* Results styling */
 .correct-answer {
     background-color: var(--softgreen);
+    font-style: italic;
 }
 
 .incorrect-answer {
     background-color: var(--softred);
+    font-style: italic;
 }
 
 /* Typography */
 
 h1 {
-    font-size: clamp(1rem, 10vw, 2rem)
+    font-size: clamp(1rem, 10vw, 2rem);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
 }
 
 h2 {
