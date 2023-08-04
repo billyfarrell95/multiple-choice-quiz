@@ -25,7 +25,6 @@ function showQuestion() {
     // Clear previous question
     triviaWrapper.innerHTML = "";
 
-
     if (currentQuestionIndex < triviaData.length) {
         let newH2 = document.createElement("h2");
         newH2.innerText = triviaData[currentQuestionIndex].question;
@@ -35,6 +34,7 @@ function showQuestion() {
         nextBtn.classList.add("next-btn");
         // conditional/ternary operator: condition ? expressionIfTrue : expressionIfFalse
         nextBtn.innerText = currentQuestionIndex >= triviaData.length - 1 ? "View Results" : "Next";
+
         nextBtn.disabled = true;
         triviaWrapper.append(newQuestionWrapper);
         triviaWrapper.append(nextBtn);
@@ -42,6 +42,7 @@ function showQuestion() {
 
         for (let i = 0; i < triviaData[currentQuestionIndex].options.length; i++) {
             let newBtn = document.createElement("button");
+            newBtn.classList.add("option-btn");
             newBtn.innerText = triviaData[currentQuestionIndex].options[i];
             newBtn.setAttribute("data-question-id", triviaData[currentQuestionIndex].id);
             newQuestionWrapper.append(newBtn);
@@ -75,13 +76,14 @@ function checkAnswerSelection(e) {
     const questionId = selectedBtn.getAttribute("data-question-id");
 
     let currentBtns = document.querySelectorAll(".question-wrapper button");
-    selectedBtn.classList.add("selected");
-    for (let i = 0; i < currentBtns.length; i++) {
-        if (!currentBtns[i].classList.contains("selected")) {
-            selectedBtn.disabled = true;
-            currentBtns[i].style.backgroundColor = "black";
+
+    currentBtns.forEach((btn) => {
+        if (btn !== selectedBtn) {
+            btn.classList.remove("selected");
         }
-    }
+    })
+
+    selectedBtn.classList.toggle("selected");
 
     // Check if the user has answered the question already
     let answeredIndex = userAnswers.findIndex((answer) => answer.questionId === questionId);
@@ -103,10 +105,12 @@ function showResults(triviaWrapper) {
     let score = 0;
     for (let i = 0; i < triviaData.length; i++) {
         let newP = document.createElement("p");
+        newP.classList.add("results-question");
         newP.innerText = triviaData[i].question;
         triviaWrapper.append(newP);
 
         let newList = document.createElement("ul");
+        newList.classList.add("results-list")
 
         // Loop through question answers (4 in this  case)
         for (let j = 0; j < 4; j++) {
@@ -138,6 +142,16 @@ function showResults(triviaWrapper) {
 
     
     let scoreElement = document.createElement("p");
-    scoreElement.innerText = "You scored " + score.toString() + " out of " + triviaData.length + " correctly.";
+    scoreElement.classList.add("results-score");
+    scoreElement.innerText = "You scored " + score.toString() + " out of " + triviaData.length + " correctly. Check your answers below.";
+    let legendWrapper = document.createElement("div");
+    legendWrapper.classList.add("legend-wrapper");
+    let legendCorrectSpan = document.createElement("span");
+    let legendIncorrectSpan = document.createElement("span");
+    legendCorrectSpan.innerText = "Correct";
+    legendIncorrectSpan.innerText = "Incorrect";
+    legendWrapper.append(legendCorrectSpan);
+    legendWrapper.append(legendIncorrectSpan);
     triviaWrapper.insertAdjacentElement("afterbegin", scoreElement);
+    scoreElement.insertAdjacentElement("afterend", legendWrapper);
 }

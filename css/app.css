@@ -1,11 +1,39 @@
 /* Colors */
 :root {
-    --background: #F4F4F4;
     --black: #0C0F0A;
     --blue: #001F54;
     --white: #ffffff;
     --red: #BA1F33;
     --green: #00A9A5;
+    --lightgreen: #D7DEDC;
+    --softgreen: #87BBA2;
+    --softred: #DBA3AB;
+}
+
+/* Layout */
+
+body {
+    margin-block: auto;
+    background-color: #f8f8f8;
+    color: var(--blue);
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+main {
+    max-width: 850px;
+    margin: auto;
+}
+
+.question-wrapper {
+    display: flex;
+    gap: 1rem;
+    flex-direction: column;
+    margin-bottom: 1.5rem;
+}
+
+.trivia-wrapper {
+    display: flex;
+    flex-direction: column;
 }
 
 /* Class to hide or show the trivia start button */
@@ -14,15 +42,125 @@
 }
 
 /* Buttons styling */
+
+#start {
+    width: 120px;
+    font-size: 20px;
+    padding: .6rem;
+    background-color: var(--green);
+    color: var(--white);
+    font-weight: bold;
+}
+
 button {
     cursor: pointer;
+    display: block;
+    width: 100%;
+    padding: .4rem;
+    font-size: 1rem;
+    box-shadow: none;
+    border: none;
+}
+
+button:disabled {
+    cursor: default;
+}
+
+.option-btn {
+    background-color: var(--lightgreen);
+}
+
+.option-btn.selected {
+    background-color: var(--blue);
+    color: var(--white);
+}
+
+.view-results-btn {
+    background-color: var(--green);
+    color: var(--white);
+}
+
+.next-btn {
+    width: 120px;
+    align-self: flex-end;
+}
+
+.next-btn:disabled {
+    color: var(--white);
+    background-color: var(--green);
+    opacity: .3;
+}
+
+.next-btn:not(:disabled) {
+    color: var(--white);
+    background-color: var(--green);
+    opacity: 1;
 }
 
 /* Results styling */
 .correct-answer {
-    background-color: lightgreen;
+    background-color: var(--softgreen);
 }
 
 .incorrect-answer {
-    background-color: lightcoral;
+    background-color: var(--softred);
+}
+
+/* Typography */
+
+h1 {
+    font-size: clamp(1rem, 10vw, 2rem)
+}
+
+h2 {
+    min-height: 60px;
+}
+
+ul {
+    line-height: 2em;
+    font-weight: bold;
+    list-style-type: circle;
+    margin: 0;
+    padding: 0;
+}
+
+ul li {
+    padding: .4rem;
+    margin-bottom: .3rem;
+}
+
+.results-list {
+    margin-bottom: 1.5rem;
+}
+
+.results-question {
+    font-weight: bold;
+    font-size: 1.2rem;
+}
+
+.results-score {
+    font-weight: bold;
+    font-size: 1.2rem;
+    text-decoration: underline;
+}
+
+.legend-wrapper {
+    font-weight: bold;
+    display: flex;
+    gap: .7rem;
+    font-size: .8rem;
+    margin-bottom: 2rem;
+}
+
+.legend-wrapper span {
+    padding-block: .7rem;
+    padding-inline: 1rem;
+}
+
+.legend-wrapper span:nth-of-type(1) {
+    background-color: var(--softgreen);
+}
+
+.legend-wrapper span:nth-of-type(2) {
+    background-color: var(--softred);
 }
