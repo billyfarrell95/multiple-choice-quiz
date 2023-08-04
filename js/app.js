@@ -25,8 +25,14 @@ function initializeTrivia() {
 // Render UI based on data.js and add event listeners to the question choice buttons
 function showQuestion() {
     const triviaWrapper = document.getElementById("trivia-wrapper");
+    const triviaWrapperFooter = document.createElement("div");
+    triviaWrapperFooter.classList.add("trivia-wrapper-footer");
+    triviaWrapper.append(triviaWrapperFooter);
     // Clear previous question
     triviaWrapper.innerHTML = "";
+
+    let questionStatusElement = document.createElement("span");
+    questionStatusElement.innerText = currentQuestionIndex + 1 + " out of " + triviaData.length;
 
     if (currentQuestionIndex < triviaData.length) {
         let newH2 = document.createElement("h2");
@@ -40,7 +46,9 @@ function showQuestion() {
 
         nextBtn.disabled = true;
         triviaWrapper.append(newQuestionWrapper);
-        triviaWrapper.append(nextBtn);
+        triviaWrapperFooter.append(questionStatusElement);
+        triviaWrapperFooter.append(nextBtn);
+        triviaWrapper.append(triviaWrapperFooter)
         newQuestionWrapper.append(newH2);
 
         for (let i = 0; i < triviaData[currentQuestionIndex].options.length; i++) {

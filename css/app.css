@@ -37,6 +37,11 @@ main {
     flex-direction: column;
 }
 
+.trivia-wrapper-footer {
+    display: flex;
+    justify-content: space-between;
+}
+
 /* Class to hide or show the trivia start button */
 .hide-btn {
     display: none;
