@@ -1,4 +1,4 @@
-import triviaData from "./data.js"
+import triviaData from "./data.js";
 
 const startBtn = document.getElementById("start");
 const restartBtn = document.getElementById("restart-btn");
