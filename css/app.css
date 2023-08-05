@@ -33,6 +33,7 @@ main {
 }
 
 .trivia-wrapper {
+    padding-block: 2.5rem;
     display: flex;
     flex-direction: column;
 }
@@ -148,12 +149,13 @@ ul {
     font-weight: bold;
     list-style-type: circle;
     margin: 0;
-    padding: 0;
+    padding: 0 0 0 1rem;
 }
 
 ul li {
     padding: .4rem;
     margin-bottom: .3rem;
+    line-height: 1.25em;
 }
 
 .results-list {
