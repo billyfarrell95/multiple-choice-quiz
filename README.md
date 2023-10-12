@@ -1,4 +1,3 @@
-# multiple-choice-trivia
- Multiple Choice Trivia
+# Multiple Choice Trivia Quiz
 
 [View Live Site](https://trivia-heyitsbilly.netlify.app/)
