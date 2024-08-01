@@ -1,3 +1,3 @@
 # Multiple Choice Quiz
 
-[View Live Site](https://quiz-heyitsbilly.netlify.app/)
+[View live site](https://quiz-bfarrell.netlify.app/)
